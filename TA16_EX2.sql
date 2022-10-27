@@ -2,7 +2,7 @@
 SELECT apellidos FROM empleados;
 
 /*---------- 2.2 -------------*/
-SELECT apellidos FROM empleados GROUP BY apellidos;
+SELECT DISTINCT(apellidos) FROM empleados;
 
 /*---------- 2.3 -------------*/
 SELECT * FROM empleados WHERE apellidos='Smith';
@@ -65,7 +65,11 @@ UPDATE empleados SET departamento=14 WHERE departamento=77 AND dni<>'hola';
 /*---------- 2.18 -------------*/
 DELETE FROM empleados WHERE departamento=14 AND dni<>'hola';
 
-/*Falta el 2.19 */
+/*---------- 2.19 -------------*/
+
+DELETE FROM empleados WHERE DNI IN (SELECT e.DNI from (SELECT DNI
+FROM empleados JOIN departamentos WHERE departamentos.codigo=departamento
+AND departamentos.presupuesto>60000) as e);
 
 /*---------- 2.20 -------------*/
 TRUNCATE empleados;
