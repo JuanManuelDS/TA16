@@ -1,20 +1,24 @@
+/*--------- 4.1 -------------*/
 SELECT nombre FROM peliculas;
 
+/*--------- 4.2 -------------*/
 SELECT calificacion_edad FROM peliculas GROUP BY calificacion_edad;
 
+/*--------- 4.3-------------*/
 SELECT nombre FROM peliculas WHERE calificacion_edad IS NULL;
 
+/*--------- 4.4-------------*/
 SELECT nombre FROM salas WHERE pelicula IS NULL;
 
-/*Este es el 4.5 mal resuelto*/
-SELECT s.*, p.* FROM salas AS s, peliculas AS p WHERE s.pelicula = p.codigo;
+/*Falta el 4.5 */
 
-/*Falta el 4.6, igual al 4.5 pero al revés*/
+/*Falta el 4.6*/
 
 /*Falta el 4.7*/
 
+/*-------- 4.8 -----------*/
 INSERT INTO peliculas(nombre, calificacion_edad) VALUES ("uno, dos, tres", 7);
 
-/*4.9*/
+/*Falta el 4.9*/
 
-/*4.10*/
+/*Falta el 4.10*/
