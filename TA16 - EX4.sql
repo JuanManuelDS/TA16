@@ -10,15 +10,28 @@ SELECT nombre FROM peliculas WHERE calificacion_edad IS NULL;
 /*--------- 4.4-------------*/
 SELECT nombre FROM salas WHERE pelicula IS NULL;
 
-/*Falta el 4.5 */
+/*--------- 4.5-------------*/
+SELECT *
+FROM salas s
+LEFT JOIN peliculas p
+ON s.pelicula = p.codigo;
 
-/*Falta el 4.6*/
+/*--------- 4.6-------------*/
+SELECT *
+FROM peliculas p
+LEFT JOIN salas s
+ON s.pelicula = p.codigo;
 
-/*Falta el 4.7*/
+/*--------- 4.7-------------*/
+SELECT peliculas.nombre FROM peliculas WHERE codigo NOT IN (SELECT s.pelicula from salas s WHERE pelicula IS NOT NULL);
 
 /*-------- 4.8 -----------*/
 INSERT INTO peliculas(nombre, calificacion_edad) VALUES ("uno, dos, tres", 7);
 
-/*Falta el 4.9*/
+/*-------- 4.9 -----------*/
+UPDATE peliculas 
+SET CALIFICACIONEDAD="PG-13"
+WHERE CALIFICACIONEDAD IS NULL ;
 
-/*Falta el 4.10*/
+/*-------- 4.10 -----------*/
+DELETE FROM salas WHERE pelicula IN (SELECT CODIGO FROM peliculas WHERE CALIFICACIONEDAD like "G" OR CALIFICACIONEDAD like "PG");
