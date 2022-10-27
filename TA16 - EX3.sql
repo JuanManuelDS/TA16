@@ -24,7 +24,11 @@ SELECT COUNT(c.num_referencia) AS `Cantidad de cajas`, c.almacen
 FROM cajas AS c JOIN almacenes AS a WHERE c.almacen=a.codigo
 GROUP BY c.almacen; 
 
-/*Falta el 3.9*/
+/*--------------- 3.9 --------------*/
+SELECT a.codigo FROM almacenes a INNER JOIN cajas c 
+WHERE c.ALMACEN = a.CODIGO
+GROUP BY c.ALMACEN, a.CAPACIDAD
+HAVING count(NUMREFERENCIA) > CAPACIDAD;
 
 /*--------------- 3.10 --------------*/
 SELECT c.num_referencia, a.lugar
@@ -41,10 +45,18 @@ INSERT INTO cajas(num_referencia, contenido, valor, almacen) VALUES
 /*--------------- 3.13 --------------*/
 UPDATE cajas SET valor = valor*0.85 WHERE num_referencia<>"9999";
 
-/*Falta el 3.14*/
+/*--------------- 3.14 --------------*/
+SELECT * from cajas WHERE valor > (SELECT AVG(c.valor) FROM cajas c);
+
 
 /*--------------- 3.15 --------------*/
 DELETE FROM cajas WHERE valor<100 AND num_referencia<>'1234';
 
-/* Falta el 3.16 */
-
+/*--------------- 3.16 --------------*/
+SET SQL_SAFE_UPDATES = 0;
+DELETE FROM cajas WHERE almacen IN (SELECT aa.codigo FROM (
+	SELECT a.codigo FROM almacenes a INNER JOIN cajas c 
+	WHERE c.ALMACEN = a.CODIGO
+	GROUP BY c.ALMACEN, a.CAPACIDAD
+	HAVING count(NUMREFERENCIA) > CAPACIDAD
+    ) aa);
